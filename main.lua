@@ -3,7 +3,7 @@ local coords = { x = window.w / 4, y = window.h / 2 }
 local moon = love.graphics.newImage('moon.png')
 local timer = 0
 local limit = 2
-local q = require('queue'):new()
+local pipes = {}
 local Pipe = require('pipe')
 
 function love.load()
@@ -17,17 +17,17 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-  if #q.items >= 8 then
-    q:pop()
+  if #pipes >= 8 then
+    table.remove(pipes,1)
   end
   coords.y = coords.y + 300 * dt
-  for i in ipairs(q.items) do
-    q.items[i].x = q.items[i].x - 100 * dt
+  for i in ipairs(pipes) do
+    pipes[i].x = pipes[i].x - 100 * dt
   end
   timer = timer + dt
   if timer >= limit then
     local pipe = Pipe:new()
-    q:push(pipe)
+    table.insert(pipes, pipe)
     timer = 0
     limit = math.random(2,3)
   end
@@ -35,8 +35,7 @@ end
 
 function love.draw()
   love.graphics.draw(moon, coords.x, coords.y, 0, 0.15, 0.15)
-  for i,v in ipairs(q.items) do
-    q.items[i]:draw()
-    print(i .. '=' .. v.y)
+  for i,v in ipairs(pipes) do
+    pipes[i]:draw()
   end
 end
