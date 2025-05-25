@@ -6,10 +6,10 @@ function Pipe:new(speed)
   local pipe = {}
   setmetatable(pipe, self)
   self.__index = self
-  self.x = 1000
-  self.y = math.random(1,600)
-  self.distance = math.random(150,300)
-  self.speed = speed or 100
+  pipe.x = 1000
+  pipe.y = math.random(1,600)
+  pipe.distance = math.random(150,300)
+  pipe.speed = speed or 100
   return pipe
 end
 
