@@ -7,8 +7,8 @@ function Pipe:new(speed)
   setmetatable(pipe, self)
   self.__index = self
   pipe.x = 1000
-  pipe.y = math.random(1,600)
-  pipe.distance = math.random(150,300)
+  pipe.y = math.random(100,500)
+  pipe.distance = math.random(200,400)
   pipe.speed = speed or 100
   return pipe
 end

@@ -7,6 +7,8 @@ local pipes = {}
 local Pipe = require('pipe')
 
 function love.load()
+  local r, g, b = love.math.colorFromBytes(132, 193, 238)
+  love.graphics.setBackgroundColor(r, g, b)
   love.window.setMode(window.w, window.h)
 end
 
