@@ -1,10 +1,15 @@
+local Pipe = require('pipe')
+local Bg = require('background')
+
 local window = { w = 1000, h = 600 }
 local coords = { x = window.w / 4, y = window.h / 2 }
-local moon = love.graphics.newImage('moon.png')
-local timer = 0
-local limit = 2
-local pipes = {}
-local Pipe = require('pipe')
+local settings = {
+  timer = 0,
+  limit = 2,
+  start = false
+}
+
+local moon = love.graphics.newImage('images/moon.png')
 
 function love.load()
   local r, g, b = love.math.colorFromBytes(132, 193, 238)
@@ -15,29 +20,34 @@ end
 function love.keypressed(key)
   if key == 'space' then
     coords.y = coords.y - 100
+
+    if not settings.start then
+      settings.start = true
+    end
   end
 end
 
 function love.update(dt)
-  if #pipes >= 8 then
-    table.remove(pipes,1)
+  -- Moon vertical movement
+  if settings.start then
+    coords.y = coords.y + 300 * dt
   end
-  coords.y = coords.y + 300 * dt
-  for i in ipairs(pipes) do
-    pipes[i].x = pipes[i].x - 100 * dt
-  end
-  timer = timer + dt
-  if timer >= limit then
-    local pipe = Pipe:new()
-    table.insert(pipes, pipe)
-    timer = 0
-    limit = math.random(2,3)
-  end
+
+  -- Background movement
+  Bg.update(dt)
+
+  -- pipes movement
+  Pipe.update(dt, settings)
+  settings.timer = settings.timer + dt
 end
 
 function love.draw()
+  -- render background
+  Bg.draw(window)
+
+  -- render pipes
+  Pipe.draw()
+
+  -- render moon
   love.graphics.draw(moon, coords.x, coords.y, 0, 0.15, 0.15)
-  for i,v in ipairs(pipes) do
-    pipes[i]:draw()
-  end
 end
