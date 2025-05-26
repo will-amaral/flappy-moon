@@ -1,15 +1,14 @@
 local Pipe = require('pipe')
 local Bg = require('background')
+local Player = require('player')
 
 local window = { w = 1000, h = 600 }
-local coords = { x = window.w / 4, y = window.h / 2 }
 local settings = {
   timer = 0,
   limit = 2,
-  start = false
+  start = false,
+  speed = 100
 }
-
-local moon = love.graphics.newImage('images/moon.png')
 
 function love.load()
   local r, g, b = love.math.colorFromBytes(132, 193, 238)
@@ -19,7 +18,7 @@ end
 
 function love.keypressed(key)
   if key == 'space' then
-    coords.y = coords.y - 100
+    Player.jump()
 
     if not settings.start then
       settings.start = true
@@ -30,7 +29,7 @@ end
 function love.update(dt)
   -- Moon vertical movement
   if settings.start then
-    coords.y = coords.y + 300 * dt
+    Player.update(dt)
   end
 
   -- Background movement
@@ -49,5 +48,5 @@ function love.draw()
   Pipe.draw()
 
   -- render moon
-  love.graphics.draw(moon, coords.x, coords.y, 0, 0.15, 0.15)
+  Player.draw()
 end

@@ -8,7 +8,7 @@ local function newPipe(speed)
   pipe.x = 1200
   pipe.y = math.random(100, 500)
   pipe.distance = math.random(200, 400)
-  pipe.speed = speed or 100
+  pipe.speed = speed
   return pipe
 end
 
@@ -22,7 +22,7 @@ function Pipe.update(dt, settings)
   end
 
   if settings.timer >= settings.limit then
-    table.insert(pipes, newPipe())
+    table.insert(pipes, newPipe(settings.speed))
     settings.timer = 0
     settings.limit = math.random(2, 3)
   end
