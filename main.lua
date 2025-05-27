@@ -7,7 +7,7 @@ local State = { Idle = {}, Play = {}, GameOver = {}}
 local window = { w = 1000, h = 600 }
 local settings = {
   timer = 0,
-  limit =00,
+  limit = 0,
   state = State.Idle,
   speed = 100
 }
@@ -73,10 +73,13 @@ end
 
 function love.draw()
   -- render background
-  Bg.draw(window)
+  Bg.draw()
 
   -- render pipes
   Pipe.draw()
+
+  -- render floor
+  Bg.floor(window)
 
   -- render moon
   Player.draw()
@@ -91,3 +94,4 @@ function love.draw()
     love.graphics.setColor(1, 1, 1)
   end
 end
+

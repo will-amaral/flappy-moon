@@ -6,14 +6,17 @@ local coords = {
 
 local Bg = {}
 
-function Bg.draw(window)
-  local r, g, b = love.math.colorFromBytes(205, 193, 165)
+function Bg.draw()
   local image = love.graphics.newImage('images/skyline.png')
 
   love.graphics.setColor(255, 255, 255, 0.4)
   love.graphics.draw(image, coords.x, coords.y)
   love.graphics.draw(image, coords.x + coords.size, coords.y)
+  love.graphics.setColor(255,255,255)
+end
 
+function Bg.floor(window)
+  local r, g, b = love.math.colorFromBytes(205, 193, 165)
   love.graphics.setColor(r, g, b)
   love.graphics.rectangle('fill', 0, window.h - 50, window.w, 50)
   love.graphics.setColor(0, 1, 0)

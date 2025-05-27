@@ -1,7 +1,5 @@
 local topPipe = love.graphics.newImage('images/topPipe.png')
 local bottomPipe = love.graphics.newImage('images/bottomPipe.png')
-local GROUND_HEIGHT = 50
-local MARGIN = 20
 
 local Pipe = {}
 local pipes = {}
@@ -29,20 +27,12 @@ function Pipe.update(dt, settings)
   end
 
   if settings.timer >= settings.limit then
-    local windowH = love.graphics.getHeight()
-    local gapHeight = love.math.random(150,300)
+    local gap = love.math.random(150,300)
+    local posY = love.math.random(0, 540 - gap)
+    local height = topPipe:getHeight() * 0.5
 
-    local minY = MARGIN + gapHeight /2
-    local maxY = windowH - GROUND_HEIGHT - MARGIN - gapHeight/2
-    local gapY = love.math.random(minY, maxY)
-
-    local bottomY = gapY + gapHeight/2
-    local bottom = newPipe(settings.speed, bottomPipe, bottomY)
-
-    local topY = gapY - gapHeight/2 - (topPipe:getHeight() * 0.5)
-    local top    = newPipe(settings.speed, topPipe, topY)
-    -- local y = math.random(100, 500)
-    -- local distance = math.random(200, 400)
+    local top = newPipe(settings.speed, topPipe, posY - height)
+    local bottom = newPipe(settings.speed, bottomPipe, gap + posY)
     table.insert(pipes, top)
     table.insert(pipes, bottom)
 
