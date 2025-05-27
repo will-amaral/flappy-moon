@@ -11,8 +11,6 @@ local settings = {
   state = State.Idle,
   speed = 100
 }
-local pipes = Pipe.get()
-local moon = Player.get()
 local function resetGame()
   settings.timer = 0
   settings.limit = 0
@@ -44,25 +42,23 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-  -- Keep Background movement only when idle or playing
   if settings.state ~= State.GameOver then
     Bg.update(dt)
   end
 
-  -- Stop updates and early return if game is idle or over
   if settings.state ~= State.Play then return end
 
-  -- Moon and Pipes movement
   Player.update(dt)
   Pipe.update(dt, settings)
   settings.timer = settings.timer + dt
 
-  -- Collision checks
-  if moon.y + moon.h >= window.h - 50 then
+  local moon = Player.get()
+  if moon.y + moon.h >= window.h - 60 then
     settings.state = State.GameOver
     return
   end
 
+  local pipes = Pipe.get()
   for _, pipe in ipairs(pipes) do
     if Collision.check(moon, pipe) then
       settings.state = State.GameOver
@@ -72,16 +68,9 @@ function love.update(dt)
 end
 
 function love.draw()
-  -- render background
   Bg.draw()
-
-  -- render pipes
   Pipe.draw()
-
-  -- render floor
   Bg.floor(window)
-
-  -- render moon
   Player.draw()
 
   -- game over screen
