@@ -3,6 +3,7 @@ local bottomPipe = love.graphics.newImage('images/bottomPipe.png')
 
 local Pipe = {}
 local pipes = {}
+local counter = 0
 
 local function newPipe(speed, pipe_img, y)
   local pipe = {
@@ -17,13 +18,12 @@ local function newPipe(speed, pipe_img, y)
 end
 
 function Pipe.update(dt, settings)
-  if #pipes >= 16 then
-    table.remove(pipes, 1)
-    table.remove(pipes, 1)
-  end
-
-  for _, pipe in ipairs(pipes) do
+  for i, pipe in ipairs(pipes) do
     pipe.x = pipe.x - pipe.speed * dt
+
+    if pipe.x + pipe.w < 0 then
+      table.remove(pipes, i)
+    end
   end
 
   if settings.timer >= settings.limit then
@@ -35,6 +35,8 @@ function Pipe.update(dt, settings)
     local bottom = newPipe(settings.speed, bottomPipe, gap + posY)
     table.insert(pipes, top)
     table.insert(pipes, bottom)
+
+    counter = counter + 1
 
     settings.timer = 0
     settings.limit = math.random(2, 3)
@@ -53,6 +55,11 @@ end
 
 function Pipe.reset()
   pipes = {}
+  counter = 0
+end
+
+function Pipe.count()
+  return counter
 end
 
 return Pipe

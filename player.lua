@@ -1,13 +1,13 @@
+local image = love.graphics.newImage('images/moon.png')
 local moon = {
-  image = love.graphics.newImage('images/moon.png'),
+  image = image,
   x = 250,
   y = 300,
+  w = image:getWidth() * 0.15,
+  h = image:getHeight() * 0.15,
   vx = 0,
   vy = 0
 }
-
-moon.w = moon.image:getWidth()  * 0.15
-moon.h = moon.image:getHeight() * 0.15
 
 local GRAVITY = 500
 local Player = {}

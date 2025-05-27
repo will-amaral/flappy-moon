@@ -3,12 +3,10 @@ local coords = {
   x = 0,
   size = 1200
 }
-
+local image = love.graphics.newImage('images/skyline.png')
 local Bg = {}
 
 function Bg.draw()
-  local image = love.graphics.newImage('images/skyline.png')
-
   love.graphics.setColor(255, 255, 255, 0.4)
   love.graphics.draw(image, coords.x, coords.y)
   love.graphics.draw(image, coords.x + coords.size, coords.y)
