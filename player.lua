@@ -23,7 +23,6 @@ end
 
 function Player.draw()
   love.graphics.draw(moon.image, moon.x, moon.y, 0, 0.15, 0.15)
-  love.graphics.rectangle('line', moon.x, moon.y, moon.w, moon.h)
 end
 
 function Player.get()

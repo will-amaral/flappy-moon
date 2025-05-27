@@ -44,7 +44,6 @@ end
 function Pipe.draw()
   for _, pipe in ipairs(pipes) do
     love.graphics.draw(pipe.image, pipe.x, pipe.y, 0, 0.5, 0.5)
-    love.graphics.rectangle('line', pipe.x, pipe.y, pipe.w, pipe.h)
   end
 end
 

@@ -73,7 +73,6 @@ function love.draw()
   Bg.floor(window)
   Player.draw()
 
-  -- game over screen
   if settings.state == State.GameOver then
     love.graphics.setColor(1, 0, 0)
     love.graphics.printf(
