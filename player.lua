@@ -1,3 +1,5 @@
+local Sound = require('sound')
+
 local image = love.graphics.newImage('images/moon.png')
 local moon = {
   image = image,
@@ -14,6 +16,7 @@ local Player = {}
 
 function Player.jump()
   moon.vy = -200
+  Sound.jump()
 end
 
 function Player.update(dt)
